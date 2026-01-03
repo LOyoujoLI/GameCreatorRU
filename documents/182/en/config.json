@@ -1,0 +1,7 @@
+{
+  "name":"GameCreator Document Center",
+  "ver":"0.3.0",
+  "logo":"http://material.kdsrpg.com/GC%E5%9B%BE%E6%A0%87%28%E7%B2%BE%29.png",
+  "testing":true,
+  "page-mounts": true
+}

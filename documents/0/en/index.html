@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <title>Центр документации GameCreator</title>
+    <link rel="stylesheet" type="text/css" href="amWiki/css/markdownbody.github.css" />
+    <link rel="stylesheet" type="text/css" href="amWiki/css/lhjs.github-gist.css" />
+    <link rel="stylesheet" type="text/css" href="amWiki/css/amWiki.css" />
+  </head>
+  <style>
+    #gameDiv {
+      transition: all 300ms;
+      position: absolute;
+      background-color: #000000;
+      width: 0px;
+      height: 752px;
+      left: 110px;
+      top: 100px;
+      z-index: 99999999;
+      border: 0px #333333 solid;
+      overflow: hidden;
+    }
+
+    #gameIframe {
+      border: 0px;
+      width: 1200px;
+      height: 720px;
+    }
+
+    #gameDivMenu {
+      height: 30px;
+      background-color: #FFFFFF;
+      padding-top: 5px;
+    }
+
+    .gameCloseBtn {
+      background-color: #990000;
+      border: 0px;
+      width: 30px;
+      height: 20px;
+      color: #FFFFFF;
+    }
+  </style>
+  <body>
+    <div id="gameDiv" style="">
+      <div id="gameDivMenu">
+        <div style="float:right;padding-right:10px;">
+          <input onclick="hideExp()" type="button" class="gameCloseBtn" value="X" />
+        </div>
+      </div>
+      <iframe width="1200" height="720" id="gameIframe" src=""></iframe>
+    </div>
+    <!-- 头部 -->
+    <header class="header">
+      <div class="header-inner">
+        <a href="http://www.gamecreator.com.cn/" class="logo">
+          <img src="https://material.gamecreator.com.cn/GC%E5%9B%BE%E6%A0%87%28%E7%B2%BE%29.png" />
+        </a>
+        <a class="logo logo-t">
+          <b>Центр документации GameCreator</b>
+          <span>0.3.1</span>
+        </a>
+        <div class="menu-icon" id="menuIcon">
+          <svg>
+            <use xlink:href="#icon:navStart"></use>
+          </svg>
+        </div>
+      </div>
+    </header>
+    <!-- 页面 -->
+    <div class="container" id="container">
+      <div class="nav" id="nav">
+        <div class="menu-filter">
+          <svg>
+            <use xlink:href="#icon:navFilter"></use>
+          </svg>
+          <input type="text" id="menuFilter" value="" placeholder="Введите ваш запрос" title="Введите ваш запрос" />
+          <i class="off" title="Очистить фильтры">&times;</i>
+        </div>
+        <nav class="menubar scroller" id="menuBar" data-x-rolling="true">
+          <div class="scroller-inner">
+            <div class="scroller-content"></div>
+          </div>
+        </nav>
+      </div>
+      <div class="main scroller" id="main">
+        <div class="main-inner scroller-inner">
+          <!-- 正文 -->
+          <article class="markdown-body scroller-content" id="view"></article>
+          <script id="template:footnote" type="text/html">
+            <sup>
+              <a href="#fn:foot{{index}}" name="fn:note{{index}}" title="{{title}}">[{{index}}]</a>
+            </sup>
+            <ol class="footnote">
+              <i>[References]:</i>{{list}}
+            </ol>
+            <li id="fn:foot{{index}}">{{content}} {{back}}</li>
+            <li class="footnote-none" data-msg="Missing match">{{content}}</li>
+            <a href="#fn:note{{index}}">
+              <svg>
+                <use xlink:href="#icon:footnoteBack"></use>
+              </svg>
+            </a>
+          </script>
+          <!-- 上下翻页 -->
+          <div class="main-sibling scroller-content" id="mainSibling">
+            <p>
+              <span>Пред. статья:</span>
+              <a href="#"></a>
+            </p>
+            <p>
+              <span>След. статья:</span>
+              <a href="#"></a>
+            </p>
+          </div>
+          <!-- 全库搜索 -->
+          <div class="search-box" id="searchBox">
+            <div class="search-update">
+              <input type="button" id="searchUpdate" value="Update all caches" />
+              <div class="text">
+                <p>Last fully updated: <time id="cacheLasttime">0000-00-00 00:00:00</time>
+                </p>
+                <p>Total number of documents: <b id="cacheDocTotal">0</b>
+                  <i>/</i>
+                  <span>Cached: <i id="cacheState">0%</i>
+                  </span>
+                </p>
+              </div>
+            </div>
+            <h2>Full library search</h2>
+            <div class="search-input">
+              <input type="text" id="searchText" placeholder="Please enter search content" />
+              <input type="button" id="search" value="Search" />
+            </div>
+            <div class="search-results" id="results">
+              <div class="search-result-message" id="resultMsg"></div>
+              <ul class="search-list"></ul>
+              <div class="search-result-more" id="resultMore">Show more</div>
+              <script id="template:searchResult" type="text/html">
+                <li class="search-item">
+                  <a href="?file={{path}}">
+                    <div class="content">
+                      <strong>{{title}}</strong> {{api}} {{content}}
+                    </div>
+                    <div class="bottom">
+                      <p>Location: <span>{{path}}</span>
+                      </p>
+                      <div class="time">Last cached in <time>{{time}}</time>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </script>
+            </div>
+          </div>
+          <!-- 接口测试 -->
+          <!-- 接口测试面板 -->
+          <div class="testing-box" id="testingBox">
+            <h2>Request Content</h2>
+            <div class="testing-send">
+              <input class="testing-send-url" id="testingSendUrl" type="text" title="Request Address" />
+              <select class="testing-send-type" id="testingSendType" title="Request Type">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
+                <option value="DELETE">DELETE</option>
+              </select>
+              <h3>Parameter list:</h3>
+              <ul class="testing-params" id="testingParam"></ul>
+              <script id="template:formList" type="text/html">
+                <li>
+                  <span>{{describe}}</span>
+                  <input class="testing-param-key" type="text" value="{{keyName}}" placeholder="Parameter Name" title="Parameter Name" />&nbsp;&nbsp; <input class="testing-param-val" type="text" value="{{default}}" placeholder="Please enter the parameter value ({{valueType}})" {{required}} />
+                  <big>*</big>
+                </li>
+              </script>
+              <div class="testing-btn">
+                <button class="testing-btn-send" id="testingBtnSend">Send Ajax</button> &nbsp;|&nbsp; <button id="testingBtnAdd">Adding parameters</button>
+                <button id="testingBtnReset">Reset parameter values</button>
+              </div>
+              <div class="testing-btn2">
+                <hr>
+                <div class="testing-btn-param" id="testingBtnGParam" title="全局参数将影响所有接口">[ <span>Global parameter setting</span>] </div>
+                <!-- 全局参数弹窗 -->
+                <div class="testing-global" id="testingGlobal">
+                  <div class="testing-global-param">
+                    <i class="close">&times;</i>
+                    <h4>Global parameter list <small>(Global parameters affect all interfaces)</small>
+                    </h4>
+                    <ul id="testingGlobalParam"></ul>
+                    <script id="template:globalParam" type="text/html">
+                      <li>
+                        <i>&times;</i> Description: <input type="text" placeholder="describe" value="{{describe}}">
+                        <br> Parameter Name: <input type="text" placeholder="key-name" value="{{keyName}}">
+                        <br> Parameter values: <input type="text" placeholder="value" value="{{value}}">
+                      </li>
+                    </script>
+                    <div class="btn">
+                      <div class="testing-global-working" id="testingGlobalWorking" title="Disable/enable global variables">
+                        <i></i>
+                        <span>Включено</span>
+                        <span>Выключено</span>
+                      </div>
+                      <button class="add">Доб.</button> &#12288;|&#12288; <button class="save">Сохр.</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h2>Response content <small id="testingDuration"></small>
+              <svg id="testingLoading">
+                <use xlink:href="#icon:loading"></use>
+              </svg>
+            </h2>
+            <div class="testing-response">
+              <iframe id="testingResponse" width="100%" frameborder="0" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes" framespacing="0"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside>
+      <!-- 侧边目录 -->
+      <div class="contents" id="contents">
+        <div class="btn">
+          <svg>
+            <use xlink:href="#icon:contents"></use>
+          </svg>
+          <span>Catalog</span>
+        </div>
+        <div class="contents-list">
+          <p>
+            <a id="contentsTitle" href="#客户日志流水接口示例">Example of customer log flow interface</a>
+          </p>
+          <div class="markdown-contents"></div>
+        </div>
+      </div>
+      <!-- 返回顶部 -->
+      <div class="back-top" id="backTop">
+        <a class="back-icon" href="#">
+          <svg>
+            <use xlink:href="#icon:backTop"></use>
+          </svg>
+        </a>
+        <a class="back-text" href="#">Вверх</a>
+      </div>
+    </aside>
+    <!-- 图片预览 -->
+    <section class="imgsv" id="imgsView">
+      <div class="imgsv-background"></div>
+      <div class="imgsv-view" id="imgsViewInner"></div>
+      <ul class="imgsv-panel">
+        <li class="prev off">Пред.</li>
+        <li class="next">След.</li>
+        <li class="original">1:1</li>
+        <li class="suit">Suitable for</li>
+      </ul>
+    </section>
+    <footer>
+      <!-- 签名 -->
+      <div class="signature">Сделано на <a href="https://github.com/TevinLi/amWiki" target="_blank">amWiki</a>
+      </div>
+    </footer>
+    <!-- mounts -->
+    <div class="hidden" aw-include="mountLinks">
+      <script src="amWiki/mounts/m003-544865.js"></script>
+      <script src="amWiki/mounts/m006-608410.js"></script>
+      <script src="amWiki/mounts/m007-645913.js"></script>
+      <script src="amWiki/mounts/m008-60377.js"></script>
+      <script src="amWiki/mounts/home-2068.js"></script>
+      <script src="amWiki/mounts/nav-33392.js"></script>
+      <script src="amWiki/mounts/icon-10759.js"></script>
+      <script src="amWiki/mounts/m003-544865.js"></script>
+      <script src="amWiki/mounts/m006-608410.js"></script>
+      <script src="amWiki/mounts/m007-645913.js"></script>
+      <script src="amWiki/mounts/m008-60377.js"></script>
+      <script src="amWiki/mounts/home-2068.js"></script>
+      <script src="amWiki/mounts/nav-27809.js"></script>
+      <script src="amWiki/mounts/icon-10759.js"></script>
+      <script>
+        AWConfig = {
+          "name": "GameCreator文档中心",
+          "ver": "0.3.0",
+          "logo": "https://material.gamecreator.com.cn/GC%E5%9B%BE%E6%A0%87%28%E7%B2%BE%29.png",
+          "testing": true,
+          "version": "0.3.0",
+          "colour": "#4296eb",
+          "pageMounts": true,
+          "githubUrl": "",
+          "libraryPrefix": ""
+        }
+      </script>
+    </div>
+    <!-- js -->
+    <div class="hidden">
+      <script type="text/javascript" src="amWiki/js/gbk.js"></script>
+      <script type="text/javascript" src="amWiki/js/pinyin.js"></script>
+      <script type="text/javascript" src="amWiki/js/jquery-compat-3.1.0.min.js"></script>
+      <script type="text/javascript" src="amWiki/js/marked.min.js"></script>
+      <script type="text/javascript" src="amWiki/js/highlight.pack.js"></script>
+      <script type="text/javascript" src="amWiki/js/raphael-min.js"></script>
+      <script type="text/javascript" src="amWiki/js/flowchart.min.js"></script>
+      <script type="text/javascript" src="amWiki/js/amWiki.tools.js"></script>
+      <script type="text/javascript" src="amWiki/js/amWiki.storage.js"></script>
+      <script type="text/javascript" src="amWiki/js/amWiki.search.js"></script>
+      <script type="text/javascript" src="amWiki/js/amWiki.search.worker.js"></script>
+      <script type="text/javascript" src="amWiki/js/amWiki.docs.js"></script>
+      <script src="amWiki/js/amWiki.testing.js"></script>
+      <script type="text/javascript" src="amWiki/js/amWiki.scrollbar.js"></script>
+      <script type="text/javascript" src="amWiki/js/amWiki.imgsView.js"></script>
+      <script type="text/javascript" src="amWiki/js/amWiki.js"></script>
+    </div>
+    <!-- svg -->
+    <div class="hidden" id="svgSymbols"></div>
+    <!-- 低版本浏览器警告 -->
+    <div id="lowBrowser">
+      <div></div>
+      <p>
+        <span>Ваш браузер не поддерживается!</span>
+      </p>
+      <script>
+        (function(win) {
+          var notice = document.getElementById('lowBrowser');
+          //jQuery 3.x 需要 addEventListener 方法支持
+          if (typeof win.addEventListener == 'undefined') {
+            notice.style.display = 'block';
+          } else {
+            var comments = notice.previousSibling;
+            if (comments.nodeType == 8) {
+              comments.parentNode.removeChild(comments);
+            } else if (comments.previousSibling.nodeType == 8) {
+              comments = comments.previousSibling;
+              comments.parentNode.removeChild(comments);
+            }
+            notice.parentNode.removeChild(notice);
+          }
+          notice = comments = null;
+        })(window);
+      </script>
+    </div>
+  </body>
+</html>
+<script>
+  function onresize() {
+    var w = document.body.clientWidth;
+    var gameDiv = document.getElementById("gameDiv");
+    if (isGameWindowOpen) {
+      gameDiv.style.left = ((w - 1200) / 2) + "px";
+    } else {
+      gameDiv.style.left = ((w) / 2) + "px";
+    }
+  }
+  window.addEventListener("resize", onresize);
+  var isGameWindowOpen = false;
+
+  function showExp(pid) {
+    isGameWindowOpen = true;
+    var url = "https://material.gamecreator.com.cn/releaseProject/1_8efa6a936a26aa77842be8944404fa95/5/index.html?" + pid;
+    var gameDiv = document.getElementById("gameDiv");
+    var iframeObj = document.getElementById("gameIframe");
+    iframeObj.src = url;
+    var w = document.body.clientWidth;
+    gameDiv.style.left = ((w - 1200) / 2) + "px";
+    gameDiv.style.border = "1px solid #000000";
+    gameDiv.style.width = "1202px";
+  }
+
+  function hideExp() {
+    isGameWindowOpen = false;
+    var gameDiv = document.getElementById("gameDiv");
+    var iframeObj = document.getElementById("gameIframe");
+    iframeObj.src = "";
+    gameDiv.style.width = "0px";
+    gameDiv.style.border = "0px";
+    var w = document.body.clientWidth;
+    gameDiv.style.left = ((w) / 2) + "px";
+  }
+  onresize();
+  window.s = showExp;
+</script>
+<script>
+  window.onload = () => {
+    //发送postmessage到外层
+    window.parent.postMessage({
+      cmd: 'libraryOnload',
+    }, '*')
+    //外层发query进来进行跳转
+    window.addEventListener('message', (e) => {
+      if (e.data.cmd === 'openlibraryPage') {
+        if (e.data.query) window.location.href = e.data.query
+      }
+    })
+    window.addEventListener('hashchange', function(event) {
+      //发送postmessage到外层
+      window.parent.postMessage({
+        cmd: 'libraryChange',
+        search: window.location.search,
+        hash: window.location.hash
+      }, '*')
+    })
+  }
+</script>

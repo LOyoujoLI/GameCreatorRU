@@ -1,0 +1,12 @@
+            <div class="header-inner">
+                <a href="http://www.gamecreator.com.cn/" class="logo"><img src="http://material.kdsrpg.com/GC%E5%9B%BE%E6%A0%87%28%E7%B2%BE%29.png" /></a><i></i>
+                <a class="logo" >
+                    <b>GameCreator文档中心</b>
+                    <span>0.3.0</span>
+                </a>
+                <div class="menu-icon" id="menuIcon">
+                    <svg>
+                        <use xlink:href="#icon:navStart"></use>
+                    </svg>
+                </div>
+            </div>
