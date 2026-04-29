@@ -3043,7 +3043,7 @@
     "[#GAME_ONLY_FOR_SELECTION_IF_YOU_NEED_TO_CHANGE_THE_DATA_SETTINGS_PLEASE_ENTER_THE_DATABASE_FOR_SETTING]": "Только для выбора. Для изменения данных зайдите в БД",
     "[#GAME_VERSION_UPDATE_NOTES]": "Заметки обновления версии",
     "[#GAME_CHECK]": "Проверить",
-    "[#GAME_UPDATING_THE_TEMPLATE_MAY_CAUSE_THE_CURRENT_PROJECT_FILE_TO_BE_LOST_OR_DAMAGED]": "Обновление шаблона может потерять или повредить файлы проекта. Сделайте бэкап",
+    "[#GAME_UPDATING_THE_TEMPLATE_MAY_CAUSE_THE_CURRENT_PROJECT_FILE_TO_BE_LOST_OR_DAMAGED]": "Обновление шаблона может повредить файлы проекта. Сделайте бэкап (Только если используете Git/SVN)",
     "[#GAME_SCENE_OBJECT_EVENT_CATEGORY]": "Категория событий объектов сцены",
     "[#GAME_INTERFACE_EVENT_CATEGORY]": "Категория событий интерфейса",
     "[#GAME_SCENE_EVENT_CATEGORY]": "Категория событий сцены",
@@ -3542,5 +3542,10 @@
     "[#GAME_EDITOR_SEARCH_ALL]": "Только целые слова",
     "[#GAME_EDITOR_SEARCH_DIS_CMD]": "Включая отключённые действия",
     "[#GAME_EDITOR_SEARCH_ID]": "ID",
-    "[#GAME_EDITOR_SEARCH_MODE]": "Поиск"
+    "[#GAME_EDITOR_SEARCH_MODE]": "Поиск",
+    "[#GAME_EDITOR_PLUG_OVERWRITE_TIPS]": "Перезаписать?\nЭта операция удалит старый плагин и очистит его данные. При необходимости создайте резервную копию вашего проекта.",
+    "[#GAME_INSTALLED_SYSTEM]": "Система",
+    "[#GAME_MY_RELEASE_PLUGIN]": "Мои релизы",
+    "[#GAME_EDITOR_PLUG_NEW_VERSION]": "Доступно обновление",
+    "[#GAME_EDITOR_PLUG_NEW_VERSION_UPDATE_TIPS]": "Новая версия может быть несовместима с текущей версией проекта. Пожалуйста, действуйте с осторожностью."
 }
